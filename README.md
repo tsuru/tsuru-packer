@@ -16,6 +16,10 @@ We use [packer](https://packer.io) to create our images, so you have to
 To create all images you have to do:
 
 ```
+$ make setup
+```
+
+```
 $ AWS_ACCESS_KEY="" AWS_SECRET_KEY="" packer build tsuru-stable.json
 ```
 

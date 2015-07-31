@@ -1,6 +1,6 @@
 {
     "variables": {
-        "aws_access_key": "{{env `AWS_ACCESS_KEY`}}"
+        "aws_access_key": "{{env `AWS_ACCESS_KEY`}}",
         "aws_secret_key": "{{env `AWS_SECRET_KEY`}}"
     },
     "builders": [{
@@ -16,7 +16,7 @@
     },{
         "type": "virtualbox-ovf",
         "http_directory": "http",
-        "source_path": "/Users/tarsis/.vagrant.d/boxes/ubuntu14.04/0/virtualbox/box.ovf",
+        "source_path": "box.ovf",
         "ssh_username": "vagrant",
         "ssh_password": "vagrant",
         "headless": true,

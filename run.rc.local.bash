@@ -49,12 +49,12 @@ if [[ "$old_ip" == "" ]]; then
     exit 1
 fi
 new_ip=$(public_ip)
-sed "s/$old_ip/$new_ip/g" /etc/tsuru/tsuru.conf > tsuru-new.conf | grep $new_ip tsuru-new.conf && sudo mv tsuru-new.conf /etc/tsuru/tsuru.conf
+sed -i "s/$old_ip/$new_ip/g" /etc/tsuru/tsuru.conf
 if [[ $? -gt 0 ]]; then
     error "Cannot change public ip in /etc/tsuru/tsuru.conf, please do it manually."
     exit 1
 fi
-sed "s/$old_ip/$new_ip/g" /etc/gandalf.conf > gandalf-new.conf | grep $new_ip gandalf-new.conf && sudo mv gandalf-new.conf /etc/gandalf.conf
+sed -i "s/$old_ip/$new_ip/g" /etc/gandalf.conf
 if [[ $? -gt 0 ]]; then
     error "Cannot change public ip in /etc/gandalf.conf, please do it manually."
     exit 1

@@ -1,0 +1,61 @@
+{
+    "variables": {
+        "aws_access_key": "{{env `AWS_ACCESS_KEY`}}"
+        "aws_secret_key": "{{env `AWS_SECRET_KEY`}}"
+    },
+    "builders": [{
+        "type": "amazon-ebs",
+        "access_key": "{{user `aws_access_key`}}",
+        "secret_key": "{{user `aws_secret_key`}}",
+        "region": "us-east-1",
+        "source_ami": "ami-018c9568",
+        "instance_type": "m3.medium",
+        "ssh_username": "ubuntu",
+        "ami_name": "tsuru-stable {{timestamp}}",
+        "security_group_id": "sg-3df7a255"
+    },{
+        "type": "virtualbox-ovf",
+        "http_directory": "http",
+        "source_path": "/Users/tarsis/.vagrant.d/boxes/ubuntu14.04/0/virtualbox/box.ovf",
+        "ssh_username": "vagrant",
+        "ssh_password": "vagrant",
+        "headless": true,
+        "vboxmanage": [
+            [
+              "modifyvm",
+              "{{.Name}}",
+              "--memory",
+              "2048"
+            ],
+            [
+              "modifyvm",
+              "{{.Name}}",
+              "--cpus",
+              "2"
+            ]
+        ],
+        "boot_command" : [
+            "<esc><wait>",
+            "<esc><wait>",
+            "<enter><wait>",
+            "/install/vmlinuz",
+            " auto=true",
+            " priority=critical",
+            " initrd=/install/initrd.gz",
+            " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg",
+            " -- ",
+            "<enter>"
+        ],
+        "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now"
+    }],
+    "provisioners": [
+    {
+        "type": "shell",
+        "inline": "curl -sL https://raw.githubusercontent.com/tsuru/now/master/run.bash | bash -s -- --template server -w"
+    },{
+        "type": "shell",
+        "script": "./run.rc.local.bash",
+        "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} {{ .Path }}"
+    }],
+    "post-processors": ["vagrant"]
+}

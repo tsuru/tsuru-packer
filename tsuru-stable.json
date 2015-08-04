@@ -57,5 +57,10 @@
         "script": "./run.rc.local.bash",
         "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} {{ .Path }}"
     }],
-    "post-processors": ["vagrant"]
+    "post-processors": [
+        {
+            "type": "vagrant",
+            "output": "tsuru-stable-{{.Provider}}.box"
+        }
+    ]
 }

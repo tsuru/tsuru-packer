@@ -16,8 +16,3 @@ sudo apt-get install -y --force-yes unzip git
 wget https://dl.bintray.com/mitchellh/packer/packer_0.8.2_linux_amd64.zip
 unzip packer_0.8.2_linux_amd64.zip
 sudo cp packer* /usr/local/bin/
-
-git clone https://github.com/tsuru/tsuru-packer.git
-cd tsuru-packer
-make setup
-packer build -machine-readable tsuru-stable.json

@@ -63,6 +63,11 @@ if [[ $? -gt 0 ]]; then
     error "Cannot change public ip in /etc/gandalf.conf, please do it manually."
     exit 1
 fi
+sed -i "s/$old_ip/$new_ip/g" ~git/.bash_profile
+if [[ $? -gt 0 ]]; then
+    error "Cannot change public ip in ~git/.bash_profile, please do it manually."
+    exit 1
+fi
 EOF
 )
 

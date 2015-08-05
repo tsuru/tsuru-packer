@@ -68,6 +68,12 @@ if [[ $? -gt 0 ]]; then
     error "Cannot change public ip in ~git/.bash_profile, please do it manually."
     exit 1
 fi
+local_ip=$(curl -s -L -m2 http://169.254.169.254/latest/meta-data/local-ipv4)
+sed -i "s/${new_ip}:6060/${local_ip}:6060/g" ~git/.bash_profile
+if [[ $? -gt 0 ]]; then
+    error "Cannot change local ip in ~git/.bash_profile, please do it manually."
+    exit 1
+fi
 EOF
 )
 

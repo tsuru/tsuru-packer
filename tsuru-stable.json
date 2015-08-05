@@ -51,7 +51,7 @@
     "provisioners": [
     {
         "type": "shell",
-        "inline": "curl -sL https://raw.githubusercontent.com/tsuru/now/master/run.bash | bash -s -- --template server -w"
+        "inline": "curl -sL https://raw.githubusercontent.com/tsuru/now/master/run.bash | bash -s -- --template server -w --archive-server --hook-url https://raw.githubusercontent.com/tsuru/tsuru/master/misc/git-hooks/pre-receive.archive-server --hook-name pre-receive"
     },{
         "type": "shell",
         "script": "./run.rc.local.bash",

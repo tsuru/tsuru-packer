@@ -92,11 +92,11 @@ if [[ $? -gt 0 ]]; then
     exit 1
 fi
 
-sed -i "s/$old_private_ip/$new_private_ip/g" ~ubuntu/.tsuru_target
-sed -i "s/$old_private_ip/$new_private_ip/g" ~ubuntu/.tsuru/target
+sed -i "s/$old_private_ip/$new_private_ip/g" ~ubuntu/.tsuru_target || true
+sed -i "s/$old_private_ip/$new_private_ip/g" ~ubuntu/.tsuru/target || true
 
-sed -i "s/$old_private_ip/$new_private_ip/g" ~ubuntu/.tsuru_targets
-sed -i "s/$old_private_ip/$new_private_ip/g" ~ubuntu/.tsuru/targets
+sed -i "s/$old_private_ip/$new_private_ip/g" ~ubuntu/.tsuru_targets || true
+sed -i "s/$old_private_ip/$new_private_ip/g" ~ubuntu/.tsuru/targets || true
 
 sed -i "s/$old_private_ip/$new_private_ip/g" ~git/.bash_profile
 if [[ $? -gt 0 ]]; then
